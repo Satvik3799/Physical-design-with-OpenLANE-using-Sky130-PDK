@@ -1,8 +1,3 @@
-# Physical Design with OpenLANE using Sky130 PDK
-
-Notion notes link - https://satvik3799.notion.site/Physical-Design-using-OpenLANE-with-Sky130-PDK-dfa6e85766e14a88ab9e8596e87e422c
-
-
 # Physical Design using OpenLANE with Sky130 PDK
 
 Created: May 23, 2023 2:38 PM
@@ -65,5 +60,3 @@ To implement an ASIC (Application specific Integrated circuit), certain steps ne
 3. Functional Verification: The functionality of the design is verified repeatedly until it meets the desired specifications. This involves writing testbench, writing test cases and simulating multiple times. Testbench means an HDL code that puts specific inputs and checks the desired output, if the desired output is not met the design will be done again.
 4. Synthesis (combination of above components to form a connected whole design) : The RTL design is transformed into a gate-level representation using a synthesis tool. The tool basically maps the RTL code to the target technology library, such as Sky130 PDK, and generates a gate-level netlist. A PDK is a physical design kit, which is a set of library given by a semiconductor foundry to enable a design and layout of IC. It allows Design engineers and foundry to be able to design a chip that is manufacturable. For ex. an NOT gate is a triangle with a bubble at the nose in a schematic, but physically the NOT gate is realized with CMOS transistors. So the schematic should be binded to the CMOS transistor equivalent of the same. The shape and I/O pins for a gate is defined in a library which is usually prebuilt and given in a PDK.
 5. Floor planning:
-
-
