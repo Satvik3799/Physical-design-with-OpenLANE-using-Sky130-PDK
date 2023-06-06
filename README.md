@@ -24,6 +24,8 @@ Notion Lab detailed Guide link - https://satvik3799.notion.site/Results-only-e5c
 To see at which step the current def file is, use the command `echo ::env(CURRENT_DEF)` and it will give the current def file.
 
 ### Stage-1 Synthesis:
+Move back up to [Table of contents](#table-of-contents)
+
 
 1. For default Picorc32a design:
     
