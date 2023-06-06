@@ -53,6 +53,7 @@ Move back up to [Table of contents](#table-of-contents)
 ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%203.png)
 
 ### Stage-2 Floorplan:
+Move back up to [Table of contents](#table-of-contents)
 
 For custom standard cell added Picorv32a design:
 The new generated .def file after running floorplan can be found here: [floorplan.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/Floorplan)
@@ -106,6 +107,7 @@ The Standard cell are placed at the bottom left temporarily.
 ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%207.png)
 
 ### Stage-3 Placement:
+Move back up to [Table of contents](#table-of-contents)
 
 For custom standard cell added Picorv32a design:
 
@@ -126,6 +128,7 @@ Zoomed in cells.
 ![zoomed in cells.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/zoomed_in_cells.png)
 
 ### Stage-4 Clock Tree Synthesis (CTS)
+Move back up to [Table of contents](#table-of-contents)
 
 The new generated .def file after running CTS, with added clock buffers can be found here: [picorv32a.cts.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/CTS)
 
@@ -139,6 +142,7 @@ The .def file after CTS:
  ![picorv32a.png](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/blob/main/Design%20files/CTS/picorv32a.png)
 
 ### Stage-5 Power Distribution Network (PDN) generation:
+Move back up to [Table of contents](#table-of-contents)
 
 The Power and Ground nets get generated in this step. After running the command `gen_pdn` , the number of VPWR and VGND nodes generated can be seen.
 The ned generated .def file can be found here: [pdn.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/PDN%20Network)
@@ -150,6 +154,7 @@ Results and .def file view in magic tool.
 ![PDN_output.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/PDN_output.png)
 
 ### Stage-6 Routing (TritonRoute)
+Move back up to [Table of contents](#table-of-contents)
 
 Manually set Routing strategy is 0. `set ::env(ROUTING_STRATEGY) 0`
 The generated .def file and the extracted SPEF file can be found here: [picorv32a.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/Routing)
@@ -177,6 +182,7 @@ Routing stats with layers:
 ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2014.png)
 
 ### Stage-7 GSDII file
+Move back up to [Table of contents](#table-of-contents)
 
 The gds file can be found here - 
 
@@ -189,6 +195,7 @@ Zoomed in view of the file.
 ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2016.png)
 
 # Steps to build custom standard cell and its integration:
+Move back up to [Table of contents](#table-of-contents)
 
 Get the .mag file of a cell and extract its SPICE model.
 
@@ -311,4 +318,5 @@ set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/sr
 When the OpenLane in invoked, after design preparation stage use the following commands to have the cell integrated into the design.
 `set lefs [glob $::env(DESIGN_DIR)/src/*.lef]`
 `add_lefs -src $lefs`
- and then run the synthesis with `run_synthesis` command. Which will include the new cell in the design. The results of cell integration are here.
+ and then run the synthesis with `run_synthesis` command. Which will include the new cell in the design. The results of cell integration are here:
+ ![VSDINV included.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/VSDINV_included.png)
