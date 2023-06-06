@@ -114,6 +114,7 @@ For custom standard cell added Picorv32a design:
 Placement .def file can be found here: [placement.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/Placement)
 
 To view the file in magic tool, the general command is 
+
 ```magic -T <location and name of the .tech file of the PDK> lef read <location and name of the merged.lef file generated while preparing the design> read def <location and name of the def file>```
 
 Placement result:
@@ -135,7 +136,7 @@ The new generated .def file after running CTS, with added clock buffers can be f
 
 ![timing.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/timing.png)
 
-After running the Clock Tree Synthesis, the .def layout files gets updated.
+After running the Clock Tree Synthesis, the .def layout files gets updated along with synthesis.v file.
 
 ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%208.png)
 
@@ -146,7 +147,7 @@ The .def file after CTS:
 Move back up to [Table of contents](#table-of-contents)
 
 The Power and Ground nets get generated in this step. After running the command `gen_pdn` , the number of VPWR and VGND nodes generated can be seen.
-The ned generated .def file can be found here: [pdn.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/PDN%20Network)
+The new generated .def file can be found here: [pdn.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/PDN%20Network)
 
 ![pdn_successful.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/pdn_successful.png)
 
@@ -157,7 +158,7 @@ Results and .def file view in magic tool.
 ### Stage-6 Routing (TritonRoute)
 Move back up to [Table of contents](#table-of-contents)
 
-Manually set Routing strategy is 0. `set ::env(ROUTING_STRATEGY) 0`
+Manually set Routing strategy is 0. `set ::env(ROUTING_STRATEGY) 0`.
 The generated .def file and the extracted SPEF file can be found here: [picorv32a.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/Routing)
 
 Routing takes time and uses memory. The current design was completed in ******1Hr14Min42Sec, ************and used **842 MB**.
@@ -170,7 +171,7 @@ Completed routing at 57th iterations, with zero violations in routing.
 
 ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2011.png)
 
-The command has also ran SPEF extraction, the file can be found here - 
+The command has also ran SPEF extraction.
 
 ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2012.png)
 
