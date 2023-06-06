@@ -1,0 +1,29 @@
+* SPICE3 file created from sky130_inv.ext - technology: sky130A
+
+.option scale=0.01u
+.include ./libs/pshort.lib
+.include ./libs/nshort.lib
+
+//.subckt sky130_inv A Y VPWR VGND
+//X0 Y A VGND VGND sky130_fd_pr__nfet_01v8 ad=1.44n pd=0.152m as=1.37n ps=0.148m w=35 l=23
+//X1 Y A VPWR VPWR sky130_fd_pr__pfet_01v8 ad=1.44n pd=0.152m as=1.52n ps=0.156m w=37 l=23
+
+M1000 Y A VPWR VPWR pshort_model.0 ad=1.44n pd=0.152m as=1.37 ps=0.148 w=35 l=23
+M1001 Y A VGND VGND nshort_model.0 ad=1.44n pd=0.152m as=1.52 ps=0.156 w=37 l=23
+VDD VPWR 0 3.3V
+VSS VGND 0 0V
+Va A VGND PULSE(0V 3.3V 0 0.1ns 0.1ns 2ns 4ns)
+
+C0 VPWR Y 0.117fF
+C1 A Y 0.0754fF
+C2 A VPWR 0.0774fF
+C3 Y VGND 0.279fF
+C4 A VGND 0.45fF
+C5 VPWR VGND 0.781fF
+
+.tran 1n 20n
+.control
+run
+.endc
+.end
+
