@@ -1,17 +1,17 @@
 # Physical Design with OpenLANE using Sky130 PDK
 
 Notion notes link - https://satvik3799.notion.site/Physical-Design-using-OpenLANE-with-Sky130-PDK-dfa6e85766e14a88ab9e8596e87e42c
-Notion Lab detailed Guide link - https://satvik3799.notion.site/Results-only-e5cbc0e146e84fe3a0bf72ced1b84c87?pv=4
+Notion Lab detailed Guide link - https://satvik3799.notion.site/Results-only-e5cbc0e146e84fe3a0bf72ced4c87?pv=4
 
 ## Table of Contents
 - [RTL to GDSII flow](#rtl-to-gdsii-flow)
-- [Stage -1 Synthesis](#stage--1-synthesis)
-- [Stage - 2 Floorplan](#stage--2-floorplan)
-- [Stage - 3 Placement](#stage--3-placement)
-- [Stage -3: Clock Tree Synthesis (CTS)](#stage-3-clock-tree-synthesis-cts)
-- [Stage - 4 Power Distribution Network (PDN) generation](#stage--4-power-distribution-network-pdn-generation)
-- [Stage -5 Routing (TritonRoute)](#stage-5-routing-tritonroute)
-- [Stage - 6 GSDII file](#stage--6-gsdii-file)
+	- [Stage-1 Synthesis](#stage-1-synthesis)
+	- [Stage-2 Floorplan](#stage-2-floorplan)
+	- [Stage-3 Placement](#stage-3-placement)
+	- [Stage-4 Clock Tree Synthesis (CTS)](#stage-4-clock-tree-synthesis-cts)
+	- [Stage-5 Power Distribution Network (PDN) generation](#stage-5-power-distribution-network-pdn-generation)
+	- [Stage-6 Routing (TritonRoute)](#stage-6-routing-tritonroute)
+	- [Stage-7 GSDII file](#stage-7-gsdii-file)
 - [Steps to build custom standard cell and its integration](#steps-to-build-custom-standard-cell-and-its-integration)
 
 
@@ -23,7 +23,7 @@ Notion Lab detailed Guide link - https://satvik3799.notion.site/Results-only-e5c
 
 To see at which step the current def file is, use the command `echo ::env(CURRENT_DEF)` and it will give the current def file.
 
-### Stage -1 Synthesis:
+### Stage-1 Synthesis:
 
 1. For default Picorc32a design:
     
@@ -50,7 +50,7 @@ To see at which step the current def file is, use the command `echo ::env(CURREN
 
 ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%203.png)
 
-### Stage - 2 Floorplan:
+### Stage-2 Floorplan:
 
 For custom standard cell added Picorv32a design:
 The new generated .def file after running floorplan can be found here: [floorplan.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/Floorplan)
@@ -103,7 +103,7 @@ The Standard cell are placed at the bottom left temporarily.
 
 ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%207.png)
 
-### Stage - 3 Placement:
+### Stage-3 Placement:
 
 For custom standard cell added Picorv32a design:
 
@@ -123,7 +123,7 @@ Zoomed in cells.
 
 ![zoomed in cells.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/zoomed_in_cells.png)
 
-### Stage -4: Clock Tree Synthesis (CTS)
+### Stage-4 Clock Tree Synthesis (CTS)
 
 The new generated .def file after running CTS, with added clock buffers can be found here: [picorv32a.cts.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/CTS)
 
@@ -136,7 +136,7 @@ After running the Clock Tree Synthesis, the .def layout files gets updated.
 The .def file after CTS:
  ![picorv32a.png](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/blob/main/Design%20files/CTS/picorv32a.png)
 
-### Stage - 4 Power Distribution Network (PDN) generation:
+### Stage-5 Power Distribution Network (PDN) generation:
 
 The Power and Ground nets get generated in this step. After running the command `gen_pdn` , the number of VPWR and VGND nodes generated can be seen.
 The ned generated .def file can be found here: [pdn.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/PDN%20Network)
@@ -147,7 +147,7 @@ Results and .def file view in magic tool.
 
 ![PDN_output.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/PDN_output.png)
 
-### Stage -5 Routing (TritonRoute)
+### Stage-6 Routing (TritonRoute)
 
 Manually set Routing strategy is 0. `set ::env(ROUTING_STRATEGY) 0`
 The generated .def file and the extracted SPEF file can be found here: [picorv32a.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/Routing)
@@ -174,7 +174,7 @@ Routing stats with layers:
 
 ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2014.png)
 
-### Stage - 6 GSDII file
+### Stage-7 GSDII file
 
 The gds file can be found here - 
 
