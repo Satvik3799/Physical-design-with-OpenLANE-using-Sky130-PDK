@@ -113,7 +113,8 @@ For custom standard cell added Picorv32a design:
 
 Placement .def file can be found here: [placement.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/Placement)
 
-To view the file in magic tool, the general command is `magic -T <location and name of the .tech file of the PDK> lef read <location and name of the merged.lef file generated while preparing the design> read def <location and name of the def file>` 
+To view the file in magic tool, the general command is 
+```magic -T <location and name of the .tech file of the PDK> lef read <location and name of the merged.lef file generated while preparing the design> read def <location and name of the def file>```
 
 Placement result:
 
