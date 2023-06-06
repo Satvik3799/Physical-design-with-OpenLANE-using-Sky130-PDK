@@ -3,6 +3,17 @@
 Notion notes link - https://satvik3799.notion.site/Physical-Design-using-OpenLANE-with-Sky130-PDK-dfa6e85766e14a88ab9e8596e87e42c
 Notion Lab detailed Guide link - https://satvik3799.notion.site/Results-only-e5cbc0e146e84fe3a0bf72ced1b84c87?pv=4
 
+## Table of Contents
+- [RTL to GDSII flow](#rtl-to-gdsii-flow)
+- [Stage -1 Synthesis](#stage--1-synthesis)
+- [Stage - 2 Floorplan](#stage--2-floorplan)
+- [Stage - 3 Placement](#stage--3-placement)
+- [Stage -3: Clock Tree Synthesis (CTS)](#stage-3-clock-tree-synthesis-cts)
+- [Stage - 4 Power Distribution Network (PDN) generation](#stage--4-power-distribution-network-pdn-generation)
+- [Stage -5 Routing (TritonRoute)](#stage-5-routing-tritonroute)
+- [Stage - 6 GSDII file](#stage--6-gsdii-file)
+- [Steps to build custom standard cell and its integration](#steps-to-build-custom-standard-cell-and-its-integration)
+
 
 # Physical Design using OpenLANE with Sky130 PDK
 
@@ -111,7 +122,7 @@ Zoomed in cells.
 
 ![zoomed in cells.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/zoomed_in_cells.png)
 
-### Stage -3: Clock Tree Synthesis (CTS)
+### Stage -4: Clock Tree Synthesis (CTS)
 
 The new generated .def file after running CTS, with added clock buffers can be found here: [picorv32a.cts.def](Design files/CTS/)
 
@@ -122,7 +133,7 @@ After running the Clock Tree Synthesis, the .def layout files gets updated.
 ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%208.png)
 
 The .def file after CTS:
- ![Untitled_CTS](Design files/CTS/picorv32a.cts.def.png)
+ ![picorv32a.png](Design files/CTS/picorv32a.png)
 
 ### Stage - 4 Power Distribution Network (PDN) generation:
 
