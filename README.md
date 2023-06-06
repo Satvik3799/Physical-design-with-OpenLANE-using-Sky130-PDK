@@ -53,6 +53,7 @@ To see at which step the current def file is, use the command `echo ::env(CURREN
 ### Stage - 2 Floorplan:
 
 For custom standard cell added Picorv32a design:
+The new generated .def file after running floorplan can be found here: [floorplan.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/Floorplan)
 
 Config.tcl file contents:
 
@@ -106,7 +107,7 @@ The Standard cell are placed at the bottom left temporarily.
 
 For custom standard cell added Picorv32a design:
 
-Placement .def file can be found here: [placement.def](Design files/Placement/)
+Placement .def file can be found here: [placement.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/Placement)
 
 To view the file in magic tool, the general command is `magic -T <location and name of the .tech file of the PDK> lef read <location and name of the merged.lef file generated while preparing the design> read def <location and name of the def file>` 
 
@@ -124,7 +125,7 @@ Zoomed in cells.
 
 ### Stage -4: Clock Tree Synthesis (CTS)
 
-The new generated .def file after running CTS, with added clock buffers can be found here: [picorv32a.cts.def](Design files/CTS/)
+The new generated .def file after running CTS, with added clock buffers can be found here: [picorv32a.cts.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/CTS)
 
 ![timing.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/timing.png)
 
@@ -133,12 +134,12 @@ After running the Clock Tree Synthesis, the .def layout files gets updated.
 ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%208.png)
 
 The .def file after CTS:
- ![picorv32a.png](Design files/CTS/picorv32a.png)
+ ![picorv32a.png](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/blob/main/Design%20files/CTS/picorv32a.png)
 
 ### Stage - 4 Power Distribution Network (PDN) generation:
 
 The Power and Ground nets get generated in this step. After running the command `gen_pdn` , the number of VPWR and VGND nodes generated can be seen.
-The ned generated .def file can be found here: [pdn.def](Design files/PDN Network/)
+The ned generated .def file can be found here: [pdn.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/PDN%20Network)
 
 ![pdn_successful.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/pdn_successful.png)
 
@@ -149,8 +150,7 @@ Results and .def file view in magic tool.
 ### Stage -5 Routing (TritonRoute)
 
 Manually set Routing strategy is 0. `set ::env(ROUTING_STRATEGY) 0`
-The generated .def file can be found here: [picorv32a.def](Design files/Routing/)
-SPEF extracted file can be found here: [picorv32a.spef](Design files/Routing/)
+The generated .def file and the extracted SPEF file can be found here: [picorv32a.def](https://github.com/Satvik3799/Physical-design-with-OpenLANE-using-Sky130-PDK/tree/main/Design%20files/Routing)
 
 Routing takes time and uses memory. The current design was completed in ******1Hr14Min42Sec, ************and used **842 MB**.
 
