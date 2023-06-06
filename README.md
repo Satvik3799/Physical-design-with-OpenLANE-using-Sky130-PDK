@@ -1,355 +1,301 @@
 # Physical Design with OpenLANE using Sky130 PDK
 
-Notion notes link - https://satvik3799.notion.site/Physical-Design-using-OpenLANE-with-Sky130-PDK-dfa6e85766e14a88ab9e8596e87e422c
+Notion notes link - https://satvik3799.notion.site/Physical-Design-using-OpenLANE-with-Sky130-PDK-dfa6e85766e14a88ab9e8596e87e42c
+Notion Lab detailed Guide link - https://satvik3799.notion.site/Results-only-e5cbc0e146e84fe3a0bf72ced1b84c87?pv=4
 
 
 # Physical Design using OpenLANE with Sky130 PDK
 
-Created: May 23, 2023 2:38 PM
+# Results only
 
-## Inside a chip:
+# RTL to GDSII flow:
 
-The chip is interfaced to the outside world using pads, from there the chip is accessed with different signals. 
+To see at which step the current def file is, use the command `echo ::env(CURRENT_DEF)` and it will give the current def file.
 
-The core is where the digital logic of the ASIC sits.
+### Stage -1 Synthesis:
 
-The Die is the size of the package or the skeleton for the IC.
-
-The IC would generally consist an SoC, SRAM, PLLs (to divide or multiple the main clock frequency), ADC and DAC blocks in order to communicate with the outside world which is analog and couple of more blocks. The blocks are called **************************Foundry IPs (Foundry intellectual property).************************** 
-
-Foundry is where the chips are manufactured and their research gives us the PDKs according to which the ICs are designed. The Foundry IPs are proprietary and since the research costs a lot of money, the PDKs are highly confidential; although there are open source PDKs such as Skywater130, which is a 130nm process node meaning the channel length between the source and drain is 130nm. Currently there are ICs which has 5nm process node. 
-
-Macro is a purely digital logic that is designed using a Hardware Description language, for ex. the SoC shown in the figure is a Macro. 
-
-<aside>
-💡 Communication with the foundry is very important even for embedded designs, because for an SoC with same functionality having different process node could cause signal integrity issues for a PCB as rise time would be different for SoCs manufactured with different process node; so for the already tested and working PCB with the SoC manufactured with 130nm process node would cause signal integrity issues if the SoC is replaced with SoC manufactured with 7nm process node. Hence the decisions are to be made keeping in mind what the foundry offers.
-
-</aside>
-
-![Untitled](Physical%20Design%20using%20OpenLANE%20with%20Sky130%20PDK%20dfa6e85766e14a88ab9e8596e87e422c/Untitled.png)
-
-![Untitled](Physical%20Design%20using%20OpenLANE%20with%20Sky130%20PDK%20dfa6e85766e14a88ab9e8596e87e422c/Untitled%201.png)
-
-![Untitled](Physical%20Design%20using%20OpenLANE%20with%20Sky130%20PDK%20dfa6e85766e14a88ab9e8596e87e422c/Untitled%202.png)
-
-## Instruction Set Architecture (ISA)
-
-Instruction Set Architecture (ISA) is a set of rules and specifications that define the interface between the hardware and software of a computer system. It determines how a processor understands and executes instructions provided by software programs. It allows software developers to write programs without worrying about the specific details of the underlying hardware, as long as they adhere to the instructions and conventions defined by the ISA.
-
-A code is written in easily understandable language by Humans, which is compiled into an Assembly code according to an ISA. The Assembly code is in Hexadecimal numbers which are executed as binary numbers or on/off of the transistors which are layed out in particular design which can run an the particular ISA for which the layout is designed for. The bits gets inside the layout and we get the output.
-
-Taking an example of RISC-V ISA. The layout for the ISA is designed using an HDL language and then a RTL description of the same. The RTL description implements the RISC-V architecture specifications and the RTL to GDSII flow is followed to realize an IC that can run that code written by Humans.
-
-![Untitled](Physical%20Design%20using%20OpenLANE%20with%20Sky130%20PDK%20dfa6e85766e14a88ab9e8596e87e422c/Untitled%203.png)
-
-![Untitled](Physical%20Design%20using%20OpenLANE%20with%20Sky130%20PDK%20dfa6e85766e14a88ab9e8596e87e422c/Untitled%204.png)
-
-## From Software application to Hardware:
-
-The application softwares are read by the system software which consists of Operating system, Compiler and Assembler. The system software converts the application software into the binary code for the hardware. 
-
-The OS takes the application software, compiles it and converts it into the assembly language. This is the major operation of the OS apart from allocating memory, Handling IO operations and low level system functions such as Memory management, Process management, User interface, Task scheduling, Power management, Error handling and logging, File system management, Networking etc. 
-
-![Untitled](Physical%20Design%20using%20OpenLANE%20with%20Sky130%20PDK%20dfa6e85766e14a88ab9e8596e87e422c/Untitled%205.png)
-
-The outputs of an OS are small functions in one of the languages such as C, C++, Java, VB etc. These small functions are then compiled to get the assembly language code. The syntax of the assembly code is dependent on the Hardware designed, for ex. Intel x86 hardware has different assembly code syntax, RISC-V has different syntax. These syntax are called ISA. The assembler converts the code in machine language, the binary language, which is fed to the hardware. The hardware gives output according the pattern of the binary numbers recieved.
-
-![Untitled](Physical%20Design%20using%20OpenLANE%20with%20Sky130%20PDK%20dfa6e85766e14a88ab9e8596e87e422c/Untitled%206.png)
-
-![Untitled](Physical%20Design%20using%20OpenLANE%20with%20Sky130%20PDK%20dfa6e85766e14a88ab9e8596e87e422c/Untitled%207.png)
-
-
-
-# Labs
-
-## Lab - 1 (Initiating Openlane, Design setup stage and synthesis)
-
-## Initiating OpenLANE:
-
-1.  Go to the OpenLane directory using “ cd ” command.
-2. Initiate Docker using : “
+1. For default Picorc32a design:
     
-    ```c
-    docker
-    ```
+    $Flop \ ratio = \frac{no. \ of \ D-flip-flops \ used}{no. \ of \ cells \ used.}$
     
-    The linux prompt would change to “ bash-4.2$ “
+    here, flop ratio = 1613/14876 = 0.1084
     
-    ![Untitled](Labs%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled.png)
+    Chip area for module: $147712.918400 \ \mu m^2$
     
-3. To initiate the OpenLane: 
+    ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled.png)
     
-    ```c
-    ./flow.tcl -interactive
-    ```
+    ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%201.png)
     
-    The command initiates a step by step interactive openlane flow. The prompt would change again:
+2. For custom standard cell added Picorv32a design:
     
-    ![Untitled](Labs%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%201.png)
+    The statistics report of the synthesis is can be found here - 
     
-    All the packages needed to run openlane are imported by the command: 
+    Flop ratio = 1613/20121 = 0.08016
     
-    ```c
-    package require openlane 0.9
-    ```
+    Chip area module - $196832.528 \ \mu m^2$
+    
+    ![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%202.png)
     
 
-Now further steps to start the automated RTL to GSDII design flow can be performed.
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%203.png)
 
-Here, Picorv32a design is being explored. The design is already tweaked to its best output and the source files are already given in the designs folder. In the folder there are at least 3 files: src, config.tcl, and sky130A_sky130_fd_sc_hd_config.tcl
+### Stage - 2 Floorplan:
 
-The src folder contains the verilog files and SDC “**Synopsys Design Constraint**” file. SDC is a common format for constraining the design which is supported by almost all Synthesis, PnR and other tools.
+For custom standard cell added Picorv32a design:
 
-The config.tcl file can be edited to change or override the default settings done by openlane.
+Config.tcl file contents:
 
-<aside>
-💡 sky130A_sky130_fd_sc_hd can be interpreted as (pdk variation)_(pdk)_(foundry)_(standard cell)_(high density).
-There can be other variations of PDK with acronyms:
-hdll - 
-ms - 
-ls - 
-hs -
-
-</aside>
-
-sky130A_sky130_fd_sc_hd_config.tcl file contains another design tweaks that can be done to modify the design.
-
-The priority order is sky130A_sky130_fd_sc_hd_config.tcl > config.tcl > Default configurations.
-
-How to decide priority in:
-
-sky130A_sky130_fd_sc_hd_config.tcl
-
-sky130A_sky130_fd_sc_hdll_config.tcl
-
-sky130A_sky130_fd_sc_ms_config.tcl
-
-sky130A_sky130_fd_sc_ls_config.tcl
-
-sky130A_sky130_fd_sc_hs_config.tcl
-
-### Design setup stage:
-
- We need to setup file system specific to the flow. Each step of the flow needs a location for the files to fetch, that location is created in the design preparation stage. It is done using command,: 
+***Notice the utilization factor used.***
 
 ```c
-prep -design picorv32a
+# Design
+set ::env(DESIGN_NAME) "picorv32a"
+
+set ::env(VERILOG_FILES) "./designs/picorv32a/src/picorv32a.v"
+set ::env(SDC_FILE) "./designs/picorv32a/src/picorv32a.sdc"
+
+set ::env(CLOCK_PERIOD) "12.000"
+set ::env(CLOCK_PORT) "clk"
+
+set ::env(CLOCK_NET) $::env(CLOCK_PORT)
+set ::env(FP_CORE_UTIL) 40
+set ::env(FP_IO_VMETAL) 4
+set ::env(FP_IO_HMETAL) 3
+
+set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib" //notice double underscore before typical, fast and slow.
+set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__fast.lib"
+set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__slow.lib"
+set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130_fd_sc_hd__typical.lib"
+
+set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
+
+set filename $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/$::env(PDK)_$::env(STD_CELL_LIBRARY)_config.tcl
+if { [file exists $filename] == 1} {
+	source $filename
+}
 ```
 
-The "prep" command is used to set up the necessary configurations, input files, and initial environment required for the subsequent stages of the OpenLane flow.
+Floor plan result:
 
- "-design": This is an option or flag used with the "prep" command to specify the design to be prepared. In this case, "picorv32a" is the name of the design that is being specified. It indicates that the "prep" command will prepare the environment specifically for the "picorv32a" design.
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%204.png)
 
-![Untitled](Labs%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%202.png)
+Notice the equi-distant IO pads which are set manually via the tcl command:
 
-During this stage, cell level LEF and technology level LEF files are combined into a single file so that the openlane flow need not go to different files to fetch information of cell geometry, layers etc. Technology level LEF describes the overall process technology characteristics, while cell level LEF describes the physical and electrical properties of individual standard cells within a specific library or cell set. These two LEF files are merged into one called **merged.lef**.
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%205.png)
 
-<aside>
-💡 LEF stands for "Library Exchange Format.” LEF files are used to describe the physical and electrical properties of library cells or standard cells. These files provide essential information for the physical design stages, such as placement and routing, within the electronic design automation (EDA) toolchain.
+Zoomed in view of the cells:
 
-1. Cell Geometries: Defines shape and boundaries of standard cells, including height, width and layer information.
-2. Pins and Ports: The pins and ports associated with each cell. These definitions include properties like name, direction (input or output), and layer information for metal connections.
-3. Layers: Describe the different layers used in the design, such as metal layers, polysilicon, diffusion, etc. Each layer is defined with its name, type, direction, and other parameters, allowing the physical design tools to understand the available layers for routing and manufacturing purposes.
-4. Site and Symmetry Information: Information about the site, which represents the placement area or grid that a cell occupies. They may include symmetry details to specify the symmetrical properties of the cells.
-5. Electrical Information: Electrical properties of cells, including capacitance values, resistance values, and other electrical characteristics. These details help in estimating power consumption, delay calculations, and other electrical analysis during the design process.
-</aside>
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%206.png)
 
-This step will generate a “ runs ” folder in the design folder of the picorv32a. Inside it there will be another folder named with the date this stage was performed on. 
+The Standard cell are placed at the bottom left temporarily.
 
-![Untitled](Labs%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%203.png)
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%207.png)
 
-The “ results ” folder will have files generated when different steps such as floor planning, CTS, synthesis etc are performed. Similiarly for reports folder.
+### Stage - 3 Placement:
 
-This file again has config.tcl shows what parameters have been modified. With every step performed there will be a config.tcl file generated, which will inform about what changes have been made.
+For custom standard cell added Picorv32a design:
 
-The merged.lef file can be accessed in the tmp folder, by using the command: 
+Placement .def file can be found here: [placement.def](Design files/Placement/)
+
+To view the file in magic tool, the general command is `magic -T <location and name of the .tech file of the PDK> lef read <location and name of the merged.lef file generated while preparing the design> read def <location and name of the def file>` 
+
+Placement result:
+
+![Placement.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Placement.png)
+
+The separately included standard cell - `sky130_vsdinv`
+
+![VSDINV included.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/VSDINV_included.png)
+
+Zoomed in cells.
+
+![zoomed in cells.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/zoomed_in_cells.png)
+
+### Stage -3: Clock Tree Synthesis (CTS)
+
+The new generated .def file after running CTS, with added clock buffers can be found here: [picorv32a.cts.def](Design files/CTS/)
+
+![timing.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/timing.png)
+
+After running the Clock Tree Synthesis, the .def layout files gets updated.
+
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%208.png)
+
+The .def file after CTS:
+ ![Untitled_CTS](Design files/CTS/picorv32a.cts.def.png)
+
+### Stage - 4 Power Distribution Network (PDN) generation:
+
+The Power and Ground nets get generated in this step. After running the command `gen_pdn` , the number of VPWR and VGND nodes generated can be seen.
+The ned generated .def file can be found here: [pdn.def](Design files/PDN Network/)
+
+![pdn_successful.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/pdn_successful.png)
+
+Results and .def file view in magic tool.
+
+![PDN_output.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/PDN_output.png)
+
+### Stage -5 Routing (TritonRoute)
+
+Manually set Routing strategy is 0. `set ::env(ROUTING_STRATEGY) 0`
+The generated .def file can be found here: [picorv32a.def](Design files/Routing/)
+SPEF extracted file can be found here: [picorv32a.spef](Design files/Routing/)
+
+Routing takes time and uses memory. The current design was completed in ******1Hr14Min42Sec, ************and used **842 MB**.
+
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%209.png)
+
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2010.png)
+
+Completed routing at 57th iterations, with zero violations in routing.
+
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2011.png)
+
+The command has also ran SPEF extraction, the file can be found here - 
+
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2012.png)
+
+Routing stats with layers:
+
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2013.png)
+
+.def file output opened in Magic:
+
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2014.png)
+
+### Stage - 6 GSDII file
+
+The gds file can be found here - 
+
+The .mag file can be found here - 
+
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2015.png)
+
+Zoomed in view of the file.
+
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2016.png)
+
+# Steps to build custom standard cell and its integration:
+
+Get the .mag file of a cell and extract its SPICE model.
+
+Use magic to open the .mag file.
+
+![CMOS inv.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/CMOS_inv.png)
+
+Extract the SPICE file using these commands in tkcon console:
+
+`extract all`
+
+`ext2spice cthresh 0 rthresh 0` 
+
+`ext2spice`
+
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2017.png)
+
+Create a SPICE deck and Run a transient simulation of the SPICE file. The netlist and spice simulation parameters along with pmos and nmos paramters are as follows:
 
 ```c
-less merged.lef
+* SPICE3 file created from sky130_inv.ext - technology: sky130A
+
+.option scale=0.01u
+.include ./libs/pshort.lib
+.include ./libs/nshort.lib
+
+//.subckt sky130_inv A Y VPWR VGND
+//X0 Y A VGND VGND sky130_fd_pr__nfet_01v8 ad=1.44n pd=0.152m as=1.37n ps=0.148m w=35 l=23
+//X1 Y A VPWR VPWR sky130_fd_pr__pfet_01v8 ad=1.44n pd=0.152m as=1.52n ps=0.156m w=37 l=23
+
+M1000 Y A VPWR VPWR pshort_model.0 ad=1.44n pd=0.152m as=1.37 ps=0.148 w=35 l=23
+M1001 Y A VGND VGND nshort_model.0 ad=1.44n pd=0.152m as=1.52 ps=0.156 w=37 l=23
+VDD VPWR 0 3.3V
+VSS VGND 0 0V
+Va A VGND PULSE(0V 3.3V 0 0.1ns 0.1ns 2ns 4ns)
+
+C0 VPWR Y 0.117fF
+C1 A Y 0.0754fF
+C2 A VPWR 0.0774fF
+C3 Y VGND 0.279fF
+C4 A VGND 0.45fF
+C5 VPWR VGND 0.781fF
+
+.tran 1n 20n
+.control
+run
+.endc
+.end
 ```
 
-Quit by pressing “ q ”.
+Running simulation with command `ngspice sky130_inv.spice` will generate a matrix of different values according to KCL and KVL equations. Running the command `plot y vs time a` in the ngspice console gives the following results:
 
-### Synthesis
+![Untitled](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2018.png)
 
-The **yosys** and **ABC** tools are utilized to convert RTL to gate level netlist. After the design setup is ready, To run the synthesis and generate gate-level netlist by command:
+Characterization of the custom inverter based on Rise transition, Fall transition, Cell Rise delay and Cell fall delay.
+
+20% of 3.3V = 0.66V
+
+50% of 3.3V = 1.65V
+
+80% of 3.3V =2.64V
+
+X-axis is the time axis and Y-axis is the Voltage. 
+
+Red line - Output
+
+Blue line - Input
+
+**Rise Transition**: Time taken for the output to rise from 20% to 80% of max value.
+
+![rise time.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/rise_time.png)
+
+Rise transition = (Time to reach 2.6V) - (Time to reach 0.66V) = 2.23529 - 2.17647 = 0.058 ns
+
+ 
+
+**Fall Transition**: Time taken for the output to fall from 80% to 20% of max value .
+
+![Fall time.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Fall_time.png)
+
+Fall transition = 4.0672 - 4.0396 = 0.0276 ns
+
+**Cell Rise delay**: difference in time(50% output rise) to time(50% input fall). 
+
+![Cell rise delay.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Cell_rise_delay.png)
+
+Cell rise delay = 2.18228 - 2.1557 = 0.02658 ns
+
+**Cell Fall delay**: difference in time(50% output fall) to time(50% input rise).
+
+![Cell fall delay.png](Results%20only%20e5cbc0e146e84fe3a0bf72ced1b84c87/Cell_fall_delay.png)
+
+Cell fall delay = 4.05467 - 4.04467 = 0.01 ns
+
+### Setting the grid parameters according to the tracks info.
+
+The I/O, and power ports should be at intersection of horizontal and vertical tracks. The CMOS Inverter ports A and Y are on li1 layer. It needs to be ensured that they're on the intersection of horizontal and vertical tracks. We access the `tracks.info` file for the pitch and direction information:
+
+![https://user-images.githubusercontent.com/86701156/124445507-3e508380-dd9d-11eb-8313-b45244931a86.PNG](https://user-images.githubusercontent.com/86701156/124445507-3e508380-dd9d-11eb-8313-b45244931a86.PNG)
+
+Set the grid parameters according to the file in the tkcon console:
+
+```
+grid 0.46um 0.34um 0.23um 0.17um
+```
+
+A LEF file of the custom standard cell is extracted using the `lef write` command in the tkcon console, which creates a .lef file.
+
+To integrate the custom standard cell in OpenLane config.tcl file must be edited with the following commands:
 
 ```c
-run_synthesis
+set ::env(LIB_SYNTH) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130/sky130_fd_sc_hd__typical.lib"
+set ::env(LIB_SLOWEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130/sky130_fd_sc_hd__slow.lib"
+set ::env(LIB_FASTEST) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130/sky130_fd_sc_hd__fast.lib"
+set ::env(LIB_TYPICAL) "$::env(OPENLANE_ROOT)/designs/picorv32a/src/sky130/sky130_fd_sc_hd__typical.lib"
+
+set ::env(EXTRA_LEFS) [glob $::env(OPENLANE_ROOT)/designs/$::env(DESIGN_NAME)/src/*.lef]
 ```
 
-In the report generated by synthesis, we are interested in chip module area and Flop ratio as of now:
-
-Flop ratio = no. of D-flip flops used/no. of cells used.
-
-here, flop ratio = 1613/14876 = 0.1084
-
-The statistics report of the synthesis is generated in the reports folder in the synthesis directory, and it is accessed using “less” command. The file is named “yosys_4.stat.rpt”
-
-![Untitled](Labs%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%204.png)
-
-![Untitled](Labs%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%205.png)
-
-## Lab - 2 (Floor plan and Placement)
-
-We are interested in two parameters as of now, Utilisation Factor and Aspect Ratio. They are defined as follows:
-
-```
-Utilisation Factor =  Area occupied by netlist
-                     __________________________
-                        Total area of core
-
-```
-
-```
-Aspect Ratio =  Height
-               ________
-                Width
-
-```
-
-A Utilization Factor of 1 signifies 100% utilization leaving no space for extra cells such as buffer. However, practically, the Utilisation Factor is 0.5-0.6. Likewise, an Aspect ratio of 1 implies that the chip is square shaped. Any value other than 1 implies rectangular chip.
-
-Priority order of configuration files to be used by the Openlane flow:
-
-`sky130A_sky130_fd_sc_hd_config.tcl`
-
-`conifg.tcl`
-
-`floorplan.tcl` - System default variables.
-
-The variables we are interested in as of now:
-
-Floorplan environment variables or switches:
-
-1. `FP_CORE_UTIL` - floorplan core utilization
-2. `FP_ASPECT_RATIO` - floorplan aspect ratio
-3. `FP_CORE_MARGIN` - Core to die margin area
-4. `FP_IO_MODE` - defines pin configurations (1 = equidistant/0 = not equidistant)
-5. `FP_CORE_VMETAL` - vertical metal layer
-6. `FP_CORE_HMETAL` - horizontal metal layer
-
-***Note: Vertical metal layer and Horizontal metal layer values will be 1 more than that specified in the files.***
-
-After setting the desired variables, to run the picorv32a floorplan in openLANE:
-
-```c
-run_floorplan
-```
-
-After the floorplan run, a .def file will have been created within the `results/floorplan` directory. The system defaults will have been overriden by switches set in `conifg.tcl` and further overriden by switches set in `sky130A_sky130_fd_sc_hd_config.tcl`. We may review floorplan files by using the tool magic.
-
-To view the floorplan, Magic is invoked after moving to the `results/floorplan` directory, where the flooprplan’s .def file is generated. We need to give location for tech lef file of the PDK, which is available in the `/openlane_working_dir/pdks/sky130A/libs.tech/magic` folder. Notice that the .tech file’s name is also included in the command, this is important or else the tool will not find the .tech file. The syntax for the command is:
-
-```c
-magic -T <path to .tech file> read lef <path to .lef file> read def <path to .def file>
-```
-
-The command used:
-
-```c
-magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
-```
-
-![Untitled](Labs%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%206.png)
-
-### Navigating in Magic:
-
-1. Use “ s + v ” to fit the design into center and make everthing visible.
-2. Use left click and the right click to make a box and then press “ z ” to zoom in.
-3. Hold “s” to see the name of a cell after zooming in.
-4. Use arrow keys to traverse.
-
-Here, equidistant input pins (FP_IO_MODE = 1) can be viewed:
-
-![Untitled](Labs%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%207.png)
-
-Zoomed in views:
-
-![Untitled](Labs%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%208.png)
-
-The standard cell can be found at the bottom left corner:
-
-![Untitled](Labs%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%209.png)
-
-### Placement
-
-The next step in the OpenLANE ASIC flow is placement. The synthesized netlist is the be placed on the floorplan. Placement is perfomed in 2 stages:
-
-1. Global Placement: It finds optimal position for all cells which may not be legal and cells may overlap. Optimization is done through reduction of half parameter wire length
-2. Detailed Placement: It alters the position of cells post global placement so as to legalise them
-
-### Placement run on OpenLANE & view in Magic
-
-Run using the command:
-
-```
-run_placement
-```
-
-The objective of placement is the convergence of overflow value. If overflow value reduces during the placement run it means that the design will converge and placement will be successful. The design can be viewed on magic within `results/placement` directory:
-
-```
-magic -T /home/aastha/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
-```
-
-![Untitled](Labs%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2010.png)
-
-Zoomed-in views of the standard cell placement:
-
-![Untitled](Labs%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2011.png)
-
-![Untitled](Labs%20e5cbc0e146e84fe3a0bf72ced1b84c87/Untitled%2012.png)
-
-### Standard Cell Design Flow
-
-Standard cell design flow steps are:
-
-1. Inputs: PDKs, DRC & LVS rules, SPICE models, libraries, user-defined specifications
-2. Design steps: Circuit design, Layout design, Extraction of parasitics, Characterization (timing, noise, power)
-3. Outputs: CDL (circuit description language), LEF, GDSII, extracted SPICE netlist (.cir), timing, noise and power .lib files
-
-### Standard Cell Characterization Flow
-
-A typical standard cell characterization flow includes the following steps:
-
-1. Read in the models and tech files
-2. Read extracted spice netlist
-3. Recognize behavior of the cell
-4. Read the subcircuits
-5. Attach power sources
-6. Apply stimulus to characterization setup
-7. Give necessary output capacitance loads
-8. Give necessary simulation commands
-
-The opensource software called GUNA can be used for characterization. Steps 1-8 are fed into the GUNA software which generates timing, noise and power models.
-
-### Timing Parameter Definitions
-
-| slew_low_rise_thr | 20% value |
-| --- | --- |
-| slew_high_rise_thr | 80% value |
-| slew_low_fall_thr | 20% value |
-| slew_high_fall_thr | 80% value |
-| in_rise_thr | 50% value |
-| in_fall_thr | 50% value |
-| out_rise_thr | 50% value |
-| out_fall_thr | 50% value |
-
-```
-rise delay =  time(out_fall_thr) - time(in_rise_thr)
-
-Fall transition time: time(slew_high_fall_thr) - time(slew_low_fall_thr)
-
-Rise transition time: time(slew_high_rise_thr) - time(slew_low_rise_thr)
-
-```
-
-
-
-#Useful resources
-
-- [cloud based verilof IDE/simulator](https://cloudv.io/)
-- [Fault DFT toolchain](https://github.com/AUCOHL/Fault)
-- https://github.com/efabless/chipignite-resources
-- [SoCGen](https://github.com/habibagamal/SoC_Automation)
+When the OpenLane in invoked, after design preparation stage use the following commands to have the cell integrated into the design.
+`set lefs [glob $::env(DESIGN_DIR)/src/*.lef]`
+`add_lefs -src $lefs`
+ and then run the synthesis with `run_synthesis` command. Which will include the new cell in the design. The results of cell integration are here.
